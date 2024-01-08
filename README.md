@@ -13,10 +13,10 @@ This project was scaffolded using the [Vite React (Typescript) template](https:/
 
 ## Development
 
-Start the app in `dev` mode in the browser:
+Start the app in `dev` mode:
 
 ```bash
-npm run dev
+npm run tauri dev
 ```
 
 ## Building for Production
