@@ -149,7 +149,7 @@ export default function SettingDialog() {
               onCheckedChange={handleIgnoreZeroCheckedChange}
             />
             <SettingsSwitch
-              label="Copie par double clique"
+              label="Copie par double-clic"
               description="Ajuste si le texte doit être copié lors d'un double-clic sur la zone de texte ou non."
               checked={doubleClickCopy}
               onCheckedChange={handleDblClickCopyCheckedChange}
