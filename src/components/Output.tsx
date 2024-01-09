@@ -43,9 +43,18 @@ const Output = React.forwardRef<HTMLTextAreaElement, React.TextareaHTMLAttribute
     };
 
     return (
-      <Label label="Votre nombre converti en mots" className="grow">
+      <Label
+        label="Votre nombre converti en mots"
+        className="grow"
+        id="output-textarea"
+        info={
+          doubleClickCopy
+            ? "Vous pouvez double-cliquer sur la zone de text pour copier son contenu"
+            : "Vous pouvez activer la copie par double-clic dans les paramètres"
+        }
+      >
         <textarea
-          title={doubleClickCopy ? "Double cliquez pour copier le texte" : ""}
+          title={doubleClickCopy ? "Double-cliquez pour copier le texte" : ""}
           ref={ref}
           onFocus={handleFocus}
           value={displayValue()}
