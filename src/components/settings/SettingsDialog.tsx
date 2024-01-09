@@ -94,7 +94,7 @@ export default function SettingDialog() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen} modal>
       <DialogTrigger className="outline-none" title="Paramètres">
-        <SettingsIcon className="hover:text-primary transition-colors" />
+        <SettingsIcon className="hover:text-primary transition-colors size-6 md:size-7" />
       </DialogTrigger>
       <DialogContent
         className="w-[92%] sm:w-4/5 2xl:w-2/3 bg-neutral-50 dark:bg-neutral-950 dark:text-neutral-100 text-neutral-900 border-none rounded-xl px-4 sm:px-6 pt-6 pb-2 sm:pb-4"
@@ -130,6 +130,7 @@ export default function SettingDialog() {
             />
             <SettingsSelect
               disabled={!displayCurrency}
+              title={!displayCurrency ? "Vous devez afficher la devise pour régler cette option" : ""}
               description="Le type de devise à afficher."
               label="Devise"
               onChange={handleCurrencyChange}

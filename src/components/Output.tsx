@@ -49,7 +49,7 @@ const Output = React.forwardRef<HTMLTextAreaElement, React.TextareaHTMLAttribute
           ref={ref}
           onFocus={handleFocus}
           value={displayValue()}
-          className="w-full rounded-lg bg-neutral-200 dark:bg-input-dark focus:ring-2 focus:ring-primary outline-none grow h-full resize-none p-4 font-medium placeholder:font-normal"
+          className="w-full rounded-lg bg-neutral-200 dark:bg-input-dark focus:ring-2 focus:ring-primary outline-none grow h-full resize-none p-2 md:p-4 font-medium placeholder:font-normal"
           onDoubleClick={handleDoubleClick}
           readOnly
           placeholder="Votre nombre s'affichera ici"

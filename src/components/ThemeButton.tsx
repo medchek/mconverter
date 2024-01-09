@@ -26,7 +26,7 @@ export default function ThemeButton() {
     <button
       type="button"
       title="Ajustez le thème"
-      className="h-7 w-7 hover:text-primary transition-colors"
+      className="size-6 md:size-7 hover:text-primary transition-colors *:size-6 md:*:size-7"
       onClick={toggleTheme}
     >
       {isDarkTheme ? <DarkThemeIcon /> : <LightThemeIcon />}
