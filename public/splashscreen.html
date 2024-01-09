@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MConverter</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        html, body {
+            padding: 0;
+            margin: 0;
+        }
+        #root {
+            font-family: Helvetica, sans-serif;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #FAFAFA;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .dark #root {
+            background-color: #06060A;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            transform: scale(.3);
+        }
+        .m {
+            line-height: 0;
+        }
+        .converter {
+            color: #0A0A0A;
+            font-weight: bold;
+            font-size: 8rem;
+            line-height: 0;
+            width: 590px;
+            height: 6rem;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .dark .converter {
+            color: #fafafa;
+        }
+
+
+    </style>
+
+    <script>
+        try {
+            const state = localStorage.getItem("app-storage");
+            if(state === null || state.trim().length === 0) throw "invalid state";
+            const parsed = JSON.parse(state);
+            const isDark = parsed.state.isDarkTheme;
+
+            if(isDark) {
+                document.documentElement.classList.add("dark");
+            }
+
+        } catch(e) {
+            console.error("Could not parse state:", e);
+        }
+    </script>
+  </head>
+
+  <body>
+    <div id="root">
+        <main>
+            <svg class="m" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" width="591" height="562" fill="none" viewBox="0 0 591 562">
+                <path fill="#201CFF" d="M.777-.004h124.585l166.845 407.233h6.586L465.638-.004h124.585V562h-97.692V175.896h-5.214l-155.32 384.458h-72.994l-155.32-385.281h-5.214V562H.777V-.004Z"/>
+              </svg>
+              
+            <p class="converter">converter</p>
+        </main>
+    </div>
+  </body>
+</html>

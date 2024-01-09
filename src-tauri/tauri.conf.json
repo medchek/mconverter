@@ -7,7 +7,7 @@
   },
   "package": {
     "productName": "MConverter",
-    "version": "0.0.0"
+    "version": "1.1.0"
   },
   "tauri": {
     "allowlist": {
@@ -30,9 +30,20 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "mconverter",
+        "title": "MConverter",
         "width": 800,
-        "height": 600
+        "height": 600,
+        "center": true,
+        "visible": false,
+        "label": "main"
+      },
+      {
+        "width": 400,
+        "height": 600,
+        "decorations": false,
+        "url": "splashscreen.html",
+        "label": "splashscreen",
+        "center": true
       }
     ]
   }
