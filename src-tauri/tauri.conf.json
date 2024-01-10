@@ -7,7 +7,7 @@
   },
   "package": {
     "productName": "MConverter",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "tauri": {
     "allowlist": {
@@ -15,6 +15,42 @@
       "shell": {
         "all": false,
         "open": true
+      },
+      "window": {
+        "all": false,
+        "center": false,
+        "close": false,
+        "create": false,
+        "hide": false,
+        "maximize": true,
+        "minimize": false,
+        "print": false,
+        "requestUserAttention": false,
+        "setAlwaysOnTop": false,
+        "setClosable": false,
+        "setContentProtected": false,
+        "setCursorGrab": false,
+        "setCursorIcon": false,
+        "setCursorPosition": false,
+        "setCursorVisible": false,
+        "setDecorations": false,
+        "setFocus": false,
+        "setFullscreen": false,
+        "setIcon": false,
+        "setIgnoreCursorEvents": false,
+        "setMaxSize": false,
+        "setMaximizable": false,
+        "setMinSize": false,
+        "setMinimizable": false,
+        "setPosition": true,
+        "setResizable": false,
+        "setSize": true,
+        "setSkipTaskbar": false,
+        "setTitle": false,
+        "show": false,
+        "startDragging": false,
+        "unmaximize": false,
+        "unminimize": false
       }
     },
     "bundle": {
@@ -31,8 +67,10 @@
         "fullscreen": false,
         "resizable": true,
         "title": "MConverter",
-        "width": 800,
-        "height": 600,
+        "width": 900,
+        "height": 700,
+        "minHeight": 600,
+        "minWidth": 400,
         "center": true,
         "visible": false,
         "label": "main"
