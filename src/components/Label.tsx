@@ -22,7 +22,7 @@ export default function Label({ children, label, id, className, info }: Props) {
         {info ? (
           <>
             <span
-              className="flex items-center justify-center border-2 text-xs text-neutral-500 font-semibold dark:border-neutral-500 border-neutral-400 size-[18px] rounded-full"
+              className="flex items-center justify-center border-2 text-xs text-neutral-500 font-semibold dark:border-neutral-500 border-neutral-400 size-4 md:size-[18px] rounded-full"
               data-tooltip-id={tooltipId}
             >
               i
@@ -33,7 +33,7 @@ export default function Label({ children, label, id, className, info }: Props) {
               offset={5}
               content={info}
               noArrow
-              className="!bg-neutral-100 shadow-sm dark:shadow-none shadow-neutral-300 !text-neutral-600 dark:!bg-neutral-900 dark:!text-neutral-300"
+              className="!bg-neutral-100 shadow-sm dark:shadow-none shadow-neutral-300 !text-neutral-600 dark:!bg-neutral-900 dark:!text-neutral-300 !opacity-100 !h-auto max-w-60 sm:max-w-fit md:max-w-max"
             />
           </>
         ) : null}

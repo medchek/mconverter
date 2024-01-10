@@ -24,12 +24,11 @@
   src: url("./assets/fonts/Inter-Bold.ttf") format("truetype");
   font-weight: 700;
 }
-
 body {
   position: relative;
   height: 100vh;
   font-family: "inter", sans-serif;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 #root {
