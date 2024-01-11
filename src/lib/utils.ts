@@ -3,7 +3,7 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { ToWords } from "to-words";
 import { CurrencyOptions } from "to-words/dist/types";
-import { Locale, Currency } from "../store/settingsSlice";
+import { ConversionLocale, Currency } from "../store/settingsSlice";
 import { PhysicalSize, type Monitor, type WebviewWindow, PhysicalPosition } from "@tauri-apps/api/window";
 import { APP_DIMENSIONS_LOCALSTORAGE_KEY, APP_MIN_HEIGHT, APP_MIN_WIDTH } from "./constants";
 import { RetrievedAppDimensions, ToWodsOptions } from "./types/utils.d";
@@ -27,7 +27,7 @@ export const toNumber = (n: string) => {
  * @param opts options object containing the target locale and currency
  * @returns CurrencyOptions object that should be used within the conversion function
  */
-const getCurrencyOptions = (opts: { locale: Locale; currency: Currency }): CurrencyOptions => {
+const getCurrencyOptions = (opts: { locale: ConversionLocale; currency: Currency }): CurrencyOptions => {
   const { locale, currency } = opts;
 
   return {
