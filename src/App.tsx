@@ -13,6 +13,7 @@ import { TauriEvent } from "@tauri-apps/api/event";
 import { APP_DIMENSIONS_LOCALSTORAGE_KEY } from "./lib/constants";
 import { currentMonitor } from "@tauri-apps/api/window";
 import { restoreAppDimesions } from "./lib/utils";
+import { exit } from "@tauri-apps/api/process";
 
 type AppDimentions = {
   xLeft: number;
@@ -49,6 +50,8 @@ export default function App() {
           isMaximized,
         };
         localStorage.setItem(APP_DIMENSIONS_LOCALSTORAGE_KEY, JSON.stringify(appDimentions));
+
+        await exit(0);
       },
     );
 
