@@ -23,6 +23,10 @@ const frFR: LocaleResource = {
     french: "Français",
   },
 
+  toast: {
+    copied: "Texte copié avec succès",
+  },
+
   currency: {
     dzd: "Dinar Algérien",
     euro: "Euro",

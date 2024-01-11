@@ -23,6 +23,10 @@ export type LocaleResource = {
     french: string;
   };
 
+  toast: {
+    copied: string;
+  };
+
   currency: {
     dzd: string;
     euro: string;
