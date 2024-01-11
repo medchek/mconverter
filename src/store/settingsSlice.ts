@@ -1,16 +1,19 @@
-import { StateCreator } from 'zustand';
+import { StateCreator } from "zustand";
+import { AvailableAppLocales } from "../lang/i18n";
 
-export type Locale = 'fr-FR' | 'en-US';
-export type Currency = 'DZD' | 'EURO' | 'USD';
+export type ConversionLocale = "fr-FR" | "en-US";
+export type Currency = "DZD" | "EURO" | "USD";
 
 export type SettingsSlice = {
-  locale: Locale;
+  appLang: AvailableAppLocales;
+  conversionLang: ConversionLocale;
   currency: Currency;
   ignoreZero: boolean;
   displayCurrency: boolean;
   doubleClickCopy: boolean;
 
-  setLocale: (v: Locale) => void;
+  setAppLang: (v: AvailableAppLocales) => void;
+  setConversionLang: (v: ConversionLocale) => void;
   setCurrency: (v: Currency) => void;
   setIngoreZero: (v: boolean) => void;
   setDisplayCurrency: (v: boolean) => void;
@@ -22,12 +25,15 @@ export type SettingsSlice = {
 };
 
 export const createSettingsSlice: StateCreator<SettingsSlice> = (set) => ({
-  locale: 'fr-FR',
-  currency: 'DZD',
+  appLang: "fr",
+  conversionLang: "fr-FR",
+  currency: "DZD",
   ignoreZero: false,
   displayCurrency: false,
   doubleClickCopy: true,
-  setLocale: (locale) => set(() => ({ locale })),
+
+  setAppLang: (lang) => set(() => ({ appLang: lang })),
+  setConversionLang: (locale) => set(() => ({ conversionLang: locale })),
   setCurrency: (currency) => set(() => ({ currency })),
   setIngoreZero: (v) => set(() => ({ ignoreZero: v })),
   setDisplayCurrency: (v) => set(() => ({ displayCurrency: v })),

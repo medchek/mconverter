@@ -2,9 +2,11 @@ import { useEffectOnce } from "usehooks-ts";
 import useStore from "../store";
 import DarkThemeIcon from "./icons/DarkThemeIcon";
 import LightThemeIcon from "./icons/LightThemeIcon";
+import { useTranslate } from "../lang/hook";
 
 export default function ThemeButton() {
   const { isDarkTheme, setIsDarkTheme } = useStore();
+  const { t } = useTranslate();
 
   useEffectOnce(() => {
     if (isDarkTheme) {
@@ -25,7 +27,7 @@ export default function ThemeButton() {
   return (
     <button
       type="button"
-      title="Ajustez le thème"
+      title={t("themeButtonTitle")}
       className="size-6 md:size-7 hover:text-primary transition-colors *:size-6 md:*:size-7"
       onClick={toggleTheme}
     >

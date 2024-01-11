@@ -3,47 +3,67 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import SettingsIcon from "../icons/SettingsIcon";
 import SettingsSelect from "./SettingsSelect";
 import SettingsSwitch from "./SettingsSwitch";
-import { Currency, Locale } from "../../store/settingsSlice";
+import { Currency, ConversionLocale } from "../../store/settingsSlice";
 import useStore from "../../store";
-
-const availableLangagues: { value: Locale; display: string }[] = [
-  { value: "fr-FR", display: "Français" },
-  { value: "en-US", display: "Anglais" },
-];
-
-const availableCurrencies: { value: Currency; display: string }[] = [
-  { value: "DZD", display: "Dinar Algérien" },
-  { value: "EURO", display: "Euro" },
-  { value: "USD", display: "Dollar" },
-];
+// eslint-disable-next-line import/named
+import { useTranslate } from "../../lang/hook";
+import { AvailableAppLocales as AppLocales } from "../../lang/i18n";
 
 export default function SettingDialog() {
   const {
-    locale: storeLocale,
+    appLang: storeAppLang,
+    conversionLang: storeConversionLang,
     currency: storeCurrency,
     ignoreZero: storeIgnoreZero,
     displayCurrency: storeDisplayCurrency,
     doubleClickCopy: storeDoubleClickCopy,
+
+    setAppLang: setStoreAppLang,
     setCurrency: setStoreCurrency,
     setIngoreZero: setStoreIngoreZero,
-    setLocale: setStoreLocale,
+    setConversionLang: setStoreConversionLang,
     setDisplayCurrency: setStoreDisplayCurrency,
     setDoubleClickCopy: setStoreDoubleClickCopy,
   } = useStore();
+  const { t, i18n } = useTranslate();
+
+  const availableAppLocales: { value: AppLocales; display: string }[] = [
+    { value: "fr", display: t("languages.french") },
+    { value: "en", display: t("languages.english") },
+  ];
+  const availableConversionLangagues: { value: ConversionLocale; display: string }[] = [
+    { value: "fr-FR", display: t("languages.french") },
+    { value: "en-US", display: t("languages.english") },
+  ];
+
+  const availableCurrencies: { value: Currency; display: string }[] = [
+    { value: "DZD", display: t("currency.dzd") },
+    { value: "EURO", display: t("currency.euro") },
+    { value: "USD", display: t("currency.dollar") },
+  ];
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const [locale, setLocale] = useState<Locale>(storeLocale);
+  const [appLang, setAppLang] = useState<AppLocales>(storeAppLang);
+  const [conversionLang, setConversionLang] = useState<ConversionLocale>(storeConversionLang);
   const [currency, setCurrecny] = useState<Currency>(storeCurrency);
   const [ignoreZero, setIngoreZero] = useState<boolean>(storeIgnoreZero);
   const [doubleClickCopy, setDoubleClickCopy] = useState<boolean>(storeDoubleClickCopy);
 
   const [displayCurrency, setDisplayCurrency] = useState<boolean>(storeDisplayCurrency);
 
-  const handleLangChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const v = e.target.value.trim() as Locale;
+  const handleAppLangChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const v = e.target.value.trim() as AppLocales;
+    console.log(v);
+    if (v !== "fr" && v !== "en") return;
+
+    setAppLang(v);
+  };
+
+  const handleConversionLangChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const v = e.target.value.trim() as ConversionLocale;
     if (v !== "en-US" && v !== "fr-FR") return;
-    setLocale(v);
+    setConversionLang(v);
   };
 
   const handleCurrencyChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -67,7 +87,12 @@ export default function SettingDialog() {
    * Seves the settings to the store and persists them
    */
   const saveSettings = () => {
-    setStoreLocale(locale);
+    setStoreAppLang(appLang);
+    // change the app lang settings if it was chgange
+    if (appLang !== storeAppLang) {
+      i18n.changeLanguage(appLang);
+    }
+    setStoreConversionLang(conversionLang);
     setStoreCurrency(currency);
     setStoreIngoreZero(ignoreZero);
     setStoreDisplayCurrency(displayCurrency);
@@ -84,7 +109,8 @@ export default function SettingDialog() {
    *
    */
   const resetState = () => {
-    setLocale(storeLocale);
+    setAppLang(storeAppLang);
+    setConversionLang(storeConversionLang);
     setCurrecny(storeCurrency);
     setIngoreZero(storeIgnoreZero);
     setDisplayCurrency(storeDisplayCurrency);
@@ -93,7 +119,7 @@ export default function SettingDialog() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen} modal>
-      <DialogTrigger className="outline-none" title="Paramètres">
+      <DialogTrigger className="outline-none" title={t("settingsButtonTitle")}>
         <SettingsIcon className="hover:text-primary transition-colors size-6 md:size-7" />
       </DialogTrigger>
       <DialogContent
@@ -105,36 +131,48 @@ export default function SettingDialog() {
         onCloseAutoFocus={resetState}
       >
         <DialogHeader>
-          <DialogTitle className="font-semibold text-xl">Paramètres</DialogTitle>
+          <DialogTitle className="font-semibold text-xl">{t("settings.self")}</DialogTitle>
         </DialogHeader>
 
         <div>
           <section className="flex flex-col gap-4">
             <SettingsSelect
-              label="Langue de conversion"
-              description="La langue utilisée lors de la conversion."
-              onChange={handleLangChange}
-              value={locale}
+              label={t("settings.appLang")}
+              description={t("settings.appLangDescription")}
+              onChange={handleAppLangChange}
+              value={appLang}
             >
-              {availableLangagues.map(({ value, display }) => (
+              {availableAppLocales.map(({ value, display }) => (
+                <option value={value} key={value}>
+                  {display}
+                </option>
+              ))}
+            </SettingsSelect>
+            <SettingsSelect
+              label={t("settings.conversionLang")}
+              description={t("settings.conversionLangDescription")}
+              onChange={handleConversionLangChange}
+              value={conversionLang}
+            >
+              {availableConversionLangagues.map(({ value, display }) => (
                 <option value={value} key={value}>
                   {display}
                 </option>
               ))}
             </SettingsSelect>
             <SettingsSwitch
-              label="Afficher la devise"
-              description="Attacher la devise séléctionnée à la fin de la conversion ou non."
+              label={t("settings.showCurrency")}
+              description={t("settings.showCurrencyDescription")}
               onCheckedChange={handleDisplayCurrencyCheckedChange}
               checked={displayCurrency}
             />
             <SettingsSelect
-              disabled={!displayCurrency}
-              title={!displayCurrency ? "Vous devez afficher la devise pour régler cette option" : ""}
-              description="Le type de devise à afficher."
-              label="Devise"
+              label={t("settings.currencyType")}
+              description={t("settings.currencyTypeDescription")}
+              title={!displayCurrency ? t("settings.currencyTypeTitle") : ""}
               onChange={handleCurrencyChange}
               value={currency}
+              disabled={!displayCurrency}
             >
               {availableCurrencies.map(({ value, display }) => (
                 <option value={value} key={value}>
@@ -143,14 +181,14 @@ export default function SettingDialog() {
               ))}
             </SettingsSelect>
             <SettingsSwitch
-              label="Ignorer la valeur zero"
-              description="Dans le cas d'une fraction, le zero ne sera pas pris en compte."
+              label={t("settings.ignoreZero")}
+              description={t("settings.ignoreZeroDescription")}
               checked={ignoreZero}
               onCheckedChange={handleIgnoreZeroCheckedChange}
             />
             <SettingsSwitch
-              label="Copie par double-clic"
-              description="Ajuste si le texte doit être copié lors d'un double-clic sur la zone de texte ou non."
+              label={t("settings.doubleClickCopy")}
+              description={t("settings.doubleClickCopyDescription")}
               checked={doubleClickCopy}
               onCheckedChange={handleDblClickCopyCheckedChange}
             />
@@ -162,7 +200,7 @@ export default function SettingDialog() {
                 className="text-primary px-2 dark:bg-primary dark:text-neutral-50 rounded-lg dark:hover:bg-neutral-50 dark:hover:text-primary transition-colors"
                 onClick={saveSettings}
               >
-                Sauvegarder
+                {t("settings.save")}
               </button>
 
               <button
@@ -170,7 +208,7 @@ export default function SettingDialog() {
                 type="button"
                 className="text-neutral-500 hover:text-neutral-400 transition-colors"
               >
-                Annuler
+                {t("settings.cancel")}
               </button>
             </div>
           </section>

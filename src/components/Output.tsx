@@ -6,13 +6,23 @@ import useStore from "../store";
 import Label from "./Label";
 import CheckIcon from "./icons/CheckIcon";
 import CopiedToast from "./CopiedToast";
+import { useTranslate } from "../lang/hook";
 
 const Output = React.forwardRef<HTMLTextAreaElement, React.TextareaHTMLAttributes<HTMLTextAreaElement>>(
   (_props, ref) => {
+    const { t } = useTranslate();
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_, copy] = useCopyToClipboard();
 
-    const { number, currency, locale, ignoreZero, displayCurrency: isCurrencyDisplayed, doubleClickCopy } = useStore();
+    const {
+      number,
+      currency,
+      conversionLang: locale,
+      ignoreZero,
+      displayCurrency: isCurrencyDisplayed,
+      doubleClickCopy,
+    } = useStore();
 
     const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement, Element>) => {
       e.target.select();
@@ -44,24 +54,20 @@ const Output = React.forwardRef<HTMLTextAreaElement, React.TextareaHTMLAttribute
 
     return (
       <Label
-        label="Votre nombre converti en mots"
+        label={t("textareaLabel")}
         className="grow"
         id="output-textarea"
-        info={
-          doubleClickCopy
-            ? "Vous pouvez double-cliquer sur la zone de text pour copier son contenu"
-            : "Vous pouvez activer la copie par double-clic dans les paramètres"
-        }
+        info={doubleClickCopy ? t("textareaInfoDblClickOn") : t("textareaInfoDblClickOff")}
       >
         <textarea
-          title={doubleClickCopy ? "Double-cliquez pour copier le texte" : ""}
+          title={doubleClickCopy ? t("textareaTitle") : ""}
           ref={ref}
           onFocus={handleFocus}
           value={displayValue()}
           className="w-full rounded-lg bg-neutral-200 dark:bg-input-dark focus:ring-2 focus:ring-primary outline-none grow h-full resize-none p-2 md:p-4 font-medium placeholder:font-normal"
           onDoubleClick={handleDoubleClick}
           readOnly
-          placeholder="Votre nombre s'affichera ici"
+          placeholder={t("textareaPlaceholder")}
         />
       </Label>
     );
