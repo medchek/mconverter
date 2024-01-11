@@ -49,8 +49,6 @@ export default function App() {
           isMaximized,
         };
         localStorage.setItem(APP_DIMENSIONS_LOCALSTORAGE_KEY, JSON.stringify(appDimentions));
-
-        restoreAppDimesions(currentWindow, currentMonitor);
       },
     );
 
